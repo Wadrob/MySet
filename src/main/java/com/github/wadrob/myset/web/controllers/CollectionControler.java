@@ -6,12 +6,10 @@ import com.github.wadrob.myset.domain.repository.CollectionRepository;
 import com.github.wadrob.myset.domain.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/collection")
 public class CollectionControler {
 
     private final CollectionRepository collectionRepository;
@@ -23,27 +21,57 @@ public class CollectionControler {
     }
 
     @ModelAttribute
-    public User getUser(){
-        return new User();
+    private User user(){
+        return userRepository.findById(1L).get();
     }
 
-    @GetMapping("/collection/{id}")
-    public String CollectionMainPage(Model model, @PathVariable Long id){
-        User user = userRepository.findById(id).get();
-        model.addAttribute("user", user);
-        model.addAttribute("collections", collectionRepository.findAllByUser(user));
+    @GetMapping("/show")
+    public String CollectionMainPage(Model model){
+        model.addAttribute("collections", collectionRepository.findAllByUser(user()));
         return "collection/collection-main-page";
     }
 
-    @GetMapping("/collection/add")
-    public String toForm(Model model){
+    @GetMapping("/add")
+    public String beforeCreateForm(Model model){
         model.addAttribute("collection", new Collection());
         return "collection/collection-add-form";
     }
 
-    @PostMapping("/collection/add")
-    public String takeForm(Collection collection){
+    @PostMapping("/add")
+    public String afterCreateForm(Collection collection){
+        collection.setUser(user());
         collectionRepository.save(collection);
-        return "redirect:/collection/1";
+        return "redirect:/collection/show";
+    }
+
+    @GetMapping("/edit")
+    public String beforeEditForm (Model model, @RequestParam Long id){
+        model.addAttribute("collectionEdit", collectionRepository.findById(id).get());
+        model.addAttribute("items", collectionRepository.findById(id).get().getItems());
+        return "collection/collection-edit-form";
+    }
+
+    @PostMapping("/edit")
+    public String afterEditForm(Collection collection){
+        collection.setUser(user());
+        collectionRepository.save(collection);
+        return "redirect:/collection/show";
+    }
+
+    @GetMapping("/delete")
+    public String deleteCollection(Model model, @RequestParam Long id){
+        model.addAttribute("collectionToDelete", collectionRepository.findById(id).get());
+        return "collection/collection-delete-confirmation";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteAfterConfirmation(@PathVariable Long id){
+        collectionRepository.deleteById(id);
+        return "redirect:/collection/show";
+    }
+    @GetMapping("/showItems/{id}")
+    public  String showItemsForCollection(Model model, @PathVariable Long id){
+        model.addAttribute("items", collectionRepository.findById(id).get().getItems());
+        return "collection/collection-show-items";
     }
 }

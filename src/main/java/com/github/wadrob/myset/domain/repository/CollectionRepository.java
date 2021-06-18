@@ -1,6 +1,7 @@
 package com.github.wadrob.myset.domain.repository;
 
 import com.github.wadrob.myset.domain.model.Collection;
+import com.github.wadrob.myset.domain.model.Item;
 import com.github.wadrob.myset.domain.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -22,4 +23,5 @@ public interface CollectionRepository extends JpaRepository<Collection, Long> {
     void deleteById(Long id);
 
     List <Collection> findAllByUser(User user);
+
 }

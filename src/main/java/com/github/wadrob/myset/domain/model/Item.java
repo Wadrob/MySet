@@ -1,9 +1,14 @@
 package com.github.wadrob.myset.domain.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table (name = "items")
+@Getter @Setter
 public class Item {
 
     @Id
@@ -12,4 +17,6 @@ public class Item {
     private String name;
     private String description;
     private String status;
+    @ManyToOne
+    private Collection collection;
 }

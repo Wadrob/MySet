@@ -21,7 +21,7 @@ public class Collection {
     private String description;
     @ManyToOne
     private User user;
-    @OneToMany
+    @OneToMany(mappedBy = "collection")
     private List<Item> items;
 
     public Collection(String name, String description, User user) {
