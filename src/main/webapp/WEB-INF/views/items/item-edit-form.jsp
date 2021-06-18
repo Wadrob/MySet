@@ -10,6 +10,7 @@
     <form:input path="name"/>
     <form:input path="description"/>
     <form:input path="status"/>
+    <form:hidden path="collection"/>
     <input type="submit" value="Upgrade">
 </form:form>
 </body>

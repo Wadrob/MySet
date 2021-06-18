@@ -71,6 +71,7 @@ public class CollectionControler {
     }
     @GetMapping("/showItems/{id}")
     public  String showItemsForCollection(Model model, @PathVariable Long id){
+        model.addAttribute("collectionId", id);
         model.addAttribute("items", collectionRepository.findById(id).get().getItems());
         return "collection/collection-show-items";
     }

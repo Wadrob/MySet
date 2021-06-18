@@ -45,7 +45,7 @@ public class ItemControler {
         return "redirect:/collection/show";
     }
 
-    @GetMapping
+    @GetMapping("/delete")
     public String deleteItem(@RequestParam Long colId, @RequestParam Long id){
         itemRepository.deleteById(id);
         return "redirect:/collection/showItems/" + colId;

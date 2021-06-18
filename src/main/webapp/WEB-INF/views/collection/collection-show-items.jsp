@@ -23,8 +23,8 @@
                 <td>${item.name}</td>
                 <td>${item.description}</td>
                 <td>${item.status}</td>
-                <td><a href="">EDIT</a></td>
-                <td><a href="">DELETE</a></td>
+                <td><a href="/items/edit?id=${item.id}">EDIT</a></td>
+                <td><a href="/items/delete?id=${item.id}&colId=${collectionId}">DELETE</a></td>
             </tr>
             </c:forEach>
     </c:otherwise>
