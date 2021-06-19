@@ -8,7 +8,7 @@
 
 <div>WELCOME ${user.email}</div>
 <br>
-<a href="/collection/add?id=${user.id}">ADD COLLECTION</a><br>
+<a href="/collection/add">ADD COLLECTION</a><br>
 COLLECTIONS:<br>
 <br>
 <c:choose>
@@ -22,15 +22,15 @@ COLLECTIONS:<br>
                 <th>Collection name</th>
                 <th>Collection description</th>
             </tr>
-            <c:forEach items="${collections}" var="col">
+            <c:forEach items="${collections}" var="col" varStatus="loop">
                 <tr>
-                    <td>${col.id}</td>
+                    <td>${loop.index}</td>
                     <td>${col.name}</td>
                     <td>${col.description}</td>
                     <td><a href="/collection/edit?id=${col.id}">EDIT</a></td>
                     <td><a href="/collection/delete?id=${col.id}">DELETE</a></td>
-                    <td><a href="/items/add?id=${col.id}">ADD ITEMS</a></td>
-                    <td><a href="/collection/showItems/${col.id}">SHOW ITEMS</a></td>
+                    <td><a href="/items/add?colId=${col.id}">ADD ITEMS</a></td>
+                    <td><a href="/items/showItems/${col.id}">SHOW ITEMS</a></td>
                 </tr>
             </c:forEach>
         </table>

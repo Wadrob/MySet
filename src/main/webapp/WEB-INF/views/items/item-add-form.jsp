@@ -9,7 +9,8 @@
 <form:form method="post" modelAttribute="item">
     <form:input path="name" placeholder="name"/><br>
     <form:input path="description" placeholder="description"/><br>
-    <form:input path="status" placeholder="status"/><br>
+    <form:select path="status" items="${statuses}"/><br>
+    <form:input path="date" type="date"/><br>
     <input type="hidden" name="colId" value="${colId}">
     <input type="submit" value="Create Item">
 </form:form>

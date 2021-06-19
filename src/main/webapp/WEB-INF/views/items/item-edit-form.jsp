@@ -7,9 +7,10 @@
 </head>
 <body>
 <form:form method="post" modelAttribute="item">
-    <form:input path="name"/>
-    <form:input path="description"/>
-    <form:input path="status"/>
+    <form:input path="name"/><br>
+    <form:input path="description"/><br>
+    <form:select path="status" items="${statuses}"/><br>
+    <form:input path="date" type="date"/><br>
     <form:hidden path="collection"/>
     <input type="submit" value="Upgrade">
 </form:form>

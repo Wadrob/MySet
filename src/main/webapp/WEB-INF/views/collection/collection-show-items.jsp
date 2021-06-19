@@ -8,25 +8,33 @@
 <c:choose>
     <c:when test="${empty items}">
         NO ITEMS IN COLLECTION
+        <a href="/collection/show">GO BACK</a>
     </c:when>
     <c:otherwise>
-        <table>
-            <tr>
-                <th>No.</th>
-                <th>Item name</th>
-                <th>Item description</th>
-                <th>Item status</th>
-            </tr>
-            <c:forEach items="${items}" var="item">
-            <tr>
-                <td>${item.id}</td>
-                <td>${item.name}</td>
-                <td>${item.description}</td>
-                <td>${item.status}</td>
-                <td><a href="/items/edit?id=${item.id}">EDIT</a></td>
-                <td><a href="/items/delete?id=${item.id}&colId=${collectionId}">DELETE</a></td>
-            </tr>
-            </c:forEach>
+        <c:forEach var="entry" items="${itemCollection}">
+            <h1>${entry.key}</h1>
+            <table>
+                <tr>
+                    <th>No.</th>
+                    <th>Item name</th>
+                    <th>Item description</th>
+                    <th>Status date</th>
+                </tr>
+                <c:forEach var="entryValues" items="${entry.value}" varStatus="loop">
+                    <tr>
+                        <td>${loop.index+1}</td>
+                        <td>${entryValues.name}</td>
+                        <td>${entryValues.description}</td>
+                        <td>${entryValues.date}</td>
+                        <td><a href="/items/edit?id=${entryValues.id}">EDIT</a></td>
+                        <td><a href="/items/delete?id=${entryValues.id}&colId=${collectionId}">DELETE</a></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:forEach>
+        <br>
+        <a href="/items/add?colId=${collectionId}">ADD NEW ONE</a><br>
+        <a href="/collection/show">GO BACK</a>
     </c:otherwise>
 </c:choose>
 </body>
