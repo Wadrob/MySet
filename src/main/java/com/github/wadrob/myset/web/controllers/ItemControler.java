@@ -41,7 +41,7 @@ public class ItemControler {
     }
 
     @PostMapping("/add")
-    public String afteAdd(Item item, @RequestParam Long colId){
+    public String afterAdd(Item item, @RequestParam Long colId){
         item.setCollection(collectionRepository.findById(colId).get());
         itemRepository.save(item);
         return "redirect:/items/showItems/" + colId;
@@ -73,6 +73,12 @@ public class ItemControler {
         model.addAttribute("collectionId", id);
         model.addAttribute("items", collectionRepository.findById(id).get().getItems());
         return "collection/collection-show-items";
+    }
+
+    @GetMapping("/showTagForItem/{id}")
+    public String showTagsForItem(Model model, @PathVariable Long id){
+        model.addAttribute("item", itemRepository.findById(id).get());
+        return "items/item-show-tags-page";
     }
 
     public Map <String,List<Item>> mapByStatus(Collection collection){

@@ -7,8 +7,10 @@
 </head>
 <body>
 <form:form method="post" modelAttribute="collection">
-    <form:input path="name" placeholder="Name of your collection"/><br>
-    <form:input path="description" placeholder="Describe your collection"/><br>
+    <form:input path="name" placeholder="Name of your collection"/>
+    <form:errors path="name"/><br>
+    <form:input path="description" placeholder="Describe your collection"/>
+    <form:errors path="description"/><br>
     <input type="submit" value="Add">
 </form:form>
 </body>

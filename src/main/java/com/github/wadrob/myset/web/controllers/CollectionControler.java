@@ -6,7 +6,10 @@ import com.github.wadrob.myset.domain.repository.CollectionRepository;
 import com.github.wadrob.myset.domain.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/collection")
@@ -38,7 +41,10 @@ public class CollectionControler {
     }
 
     @PostMapping("/add")
-    public String afterCreateForm(Collection collection){
+    public String afterCreateForm(@Valid Collection collection, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "collection/collection-add-form";
+        }
         collection.setUser(user());
         collectionRepository.save(collection);
         return "redirect:/collection/show";
@@ -52,7 +58,10 @@ public class CollectionControler {
     }
 
     @PostMapping("/edit")
-    public String afterEditForm(Collection collection){
+    public String afterEditForm(@Valid Collection collection,BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "collection/collection-edit-form";
+        }
         collection.setUser(user());
         collectionRepository.save(collection);
         return "redirect:/collection/show";

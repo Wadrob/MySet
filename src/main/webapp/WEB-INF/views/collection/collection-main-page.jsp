@@ -8,7 +8,6 @@
 
 <div>WELCOME ${user.email}</div>
 <br>
-<a href="/collection/add">ADD COLLECTION</a><br>
 COLLECTIONS:<br>
 <br>
 <c:choose>
@@ -24,7 +23,7 @@ COLLECTIONS:<br>
             </tr>
             <c:forEach items="${collections}" var="col" varStatus="loop">
                 <tr>
-                    <td>${loop.index}</td>
+                    <td>${loop.index+1}</td>
                     <td>${col.name}</td>
                     <td>${col.description}</td>
                     <td><a href="/collection/edit?id=${col.id}">EDIT</a></td>
@@ -36,5 +35,7 @@ COLLECTIONS:<br>
         </table>
     </c:otherwise>
 </c:choose>
+<a href="/collection/add">ADD COLLECTION</a><br>
+<a href="/tags/showAllTags?userId=${user.id}">MENAGE YOUR TAG</a>
 </body>
 </html>

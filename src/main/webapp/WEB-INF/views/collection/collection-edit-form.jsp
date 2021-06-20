@@ -8,7 +8,9 @@
 <body>
 <form:form method="post" modelAttribute="collectionEdit">
     <form:input path="name"/>
+    <form:errors path="name"/>
     <form:input path="description"/>
+    <form:errors path="description"/>
     <input type="submit" value="UPDATE">
 </form:form>
 

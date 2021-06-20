@@ -11,8 +11,9 @@
         <a href="/collection/show">GO BACK</a>
     </c:when>
     <c:otherwise>
+        <h1>ITEMS IN COLLECTION - ${items.get(0).collection.name}</h1>
         <c:forEach var="entry" items="${itemCollection}">
-            <h1>${entry.key}</h1>
+            <h2>${entry.key}</h2>
             <table>
                 <tr>
                     <th>No.</th>
@@ -28,6 +29,8 @@
                         <td>${entryValues.date}</td>
                         <td><a href="/items/edit?id=${entryValues.id}">EDIT</a></td>
                         <td><a href="/items/delete?id=${entryValues.id}&colId=${collectionId}">DELETE</a></td>
+                        <td><a href="/tags/addTag?itemId=${entryValues.id}">ADD TAGS</a></td>
+                        <td><a href="/items/showTagForItem/${entryValues.id}">SHOW TAGS FOR ITEM</a></td>
                     </tr>
                 </c:forEach>
             </table>
