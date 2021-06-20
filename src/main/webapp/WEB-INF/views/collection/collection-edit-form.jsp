@@ -3,11 +3,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Title</title>
+    <title> EDIT COLLECTION ${collectionEdit.id} - for ${collectionEdit.user.email}</title>
 </head>
 <body>
 <form:form method="post" modelAttribute="collectionEdit">
-    COLLECTION ${collectionEdit.id} - for ${collectionEdit.user.email}
     <form:input path="name"/>
     <form:input path="description"/>
     <input type="submit" value="UPDATE">

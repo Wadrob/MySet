@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table (name = "items")
@@ -19,4 +21,6 @@ public class Item {
     @ManyToOne
     private Collection collection;
     private String date;
+    @ManyToMany
+    private List <Tag> tags = new ArrayList<>();
 }

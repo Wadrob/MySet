@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Collection {
     @ManyToOne
     private User user;
     @OneToMany(mappedBy = "collection")
-    private List<Item> items;
+    private List<Item> items = new ArrayList<>();
 
     public Collection(String name, String description, User user) {
         this.name = name;

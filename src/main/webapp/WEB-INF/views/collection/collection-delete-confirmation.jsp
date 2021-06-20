@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>DELETE YOUR COLLECTION</title>
+    <title>DELETE YOUR COLLECTION ${collectionToDelete.name}</title>
 </head>
 <body>
 ARE YOU SURE YOU WANT TO DELETE COLLECTION ${collectionToDelete.name}?
