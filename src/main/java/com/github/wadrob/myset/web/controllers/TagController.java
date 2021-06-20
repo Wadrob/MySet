@@ -7,10 +7,13 @@ import com.github.wadrob.myset.domain.repository.TagRepository;
 import com.github.wadrob.myset.domain.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -49,7 +52,10 @@ public class TagController {
     }
 
     @PostMapping("/addNewTag")
-    public String addNewTagAfterForm(Tag tag, @RequestParam Long user){
+    public String addNewTagAfterForm(@Valid Tag tag, BindingResult bindingResult, @RequestParam Long user){
+        if(bindingResult.hasErrors()){
+            return "/tags/add-new-tag";
+        }
         tag.setUser(userRepository.findById(user).get());
         tagRepository.save(tag);
         return "redirect:/tags/showAllTags?userId="+ userRepository.findById(user).get().getId();

@@ -26,6 +26,7 @@ public class Item {
     @ManyToOne
     private Collection collection;
     @NotNull
+    @Size(min = 3)
     private String date;
     @ManyToMany
     private List <Tag> tags = new ArrayList<>();

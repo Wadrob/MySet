@@ -8,6 +8,7 @@
 <body>
 <form:form method="post" modelAttribute="Tag">
     <form:input path="name" placeholder="Name your tag"/>
+    <form:errors path="name"/><br>
     <input type="hidden" name="user" value="${user}"/>
     <input type="submit" value="Add tag">
 </form:form>

@@ -6,8 +6,10 @@ import com.github.wadrob.myset.domain.repository.CollectionRepository;
 import com.github.wadrob.myset.domain.repository.ItemRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 
 @Controller
@@ -41,7 +43,10 @@ public class ItemControler {
     }
 
     @PostMapping("/add")
-    public String afterAdd(Item item, @RequestParam Long colId){
+    public String afterAdd(@Valid Item item, BindingResult bindingResult, @RequestParam Long colId){
+        if(bindingResult.hasErrors()){
+            return "items/item-add-form";
+        }
         item.setCollection(collectionRepository.findById(colId).get());
         itemRepository.save(item);
         return "redirect:/items/showItems/" + colId;
@@ -54,7 +59,10 @@ public class ItemControler {
     }
 
     @PostMapping("/edit")
-    public String afterEditForm(Item item){
+    public String afterEditForm(@Valid Item item, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "items/item-edit-form";
+        }
         itemRepository.save(item);
         Long colId = item.getCollection().getId();
         return "redirect:/items/showItems/" + colId ;
