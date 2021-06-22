@@ -1,9 +1,9 @@
 package com.github.wadrob.myset.web.controllers;
 
-import com.github.wadrob.myset.domain.model.Collection;
 import com.github.wadrob.myset.domain.model.Item;
 import com.github.wadrob.myset.domain.repository.CollectionRepository;
 import com.github.wadrob.myset.domain.repository.ItemRepository;
+import com.github.wadrob.myset.domain.service.ItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,10 +18,12 @@ public class ItemControler {
 
     private final ItemRepository itemRepository;
     private final CollectionRepository collectionRepository;
+    private final ItemService itemService;
 
-    public ItemControler(ItemRepository itemRepository, CollectionRepository collectionRepository) {
+    public ItemControler(ItemRepository itemRepository, CollectionRepository collectionRepository, ItemService itemService) {
         this.itemRepository = itemRepository;
         this.collectionRepository = collectionRepository;
+        this.itemService = itemService;
     }
 
     @ModelAttribute("statuses")
@@ -76,7 +78,7 @@ public class ItemControler {
 
     @GetMapping("/showItems/{id}")
     public  String showItemsForCollection(Model model, @PathVariable Long id){
-        Map<String, List<Item>> sortedCollection = mapByStatus(collectionRepository.findById(id).get());
+        Map<String, List<Item>> sortedCollection = itemService.mapByStatus(collectionRepository.findById(id).get());
         model.addAttribute("itemCollection", sortedCollection);
         model.addAttribute("collectionId", id);
         model.addAttribute("items", collectionRepository.findById(id).get().getItems());
@@ -88,42 +90,5 @@ public class ItemControler {
         model.addAttribute("item", itemRepository.findById(id).get());
         return "items/item-show-tags-page";
     }
-
-    public Map <String,List<Item>> mapByStatus(Collection collection){
-        List<Item> collectionItems = itemRepository.findAllByCollection(collection);
-        Map<String, List<Item>> mappedCollection = new HashMap<>();
-        Comparator<Item> compareByStatus = Comparator.comparing(Item::getStatus);
-        collectionItems.sort(compareByStatus);
-        List<Item> toAdd = new ArrayList<>();
-
-        for (int i = 0; i < collectionItems.size(); i++){
-            String i1 = collectionItems.get(i).getStatus();
-            String i2;
-
-
-            if (i+1 >= collectionItems.size()){
-                toAdd.add(collectionItems.get(i));
-                mappedCollection.put(i1, toAdd);
-            }
-            else {
-                i2 = collectionItems.get(i+1).getStatus();
-                if (i1.equals(i2)){
-                    toAdd.add(collectionItems.get(i));
-                }
-                else {
-                    toAdd.add(collectionItems.get(i));
-                    mappedCollection.put(i1, toAdd);
-                    toAdd = new ArrayList<>();
-                }
-            }
-        }
-        return mappedCollection;
-    }
-
-
-
-
-
-
 
 }

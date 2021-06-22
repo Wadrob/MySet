@@ -37,5 +37,6 @@ COLLECTIONS:<br>
 </c:choose>
 <a href="/collection/add">ADD COLLECTION</a><br>
 <a href="/tags/showAllTags?userId=${user.id}">MENAGE YOUR TAG</a>
+<a href="/logout">LOGOUT</a>
 </body>
 </html>

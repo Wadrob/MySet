@@ -4,6 +4,8 @@ import com.github.wadrob.myset.domain.model.Collection;
 import com.github.wadrob.myset.domain.model.User;
 import com.github.wadrob.myset.domain.repository.CollectionRepository;
 import com.github.wadrob.myset.domain.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +27,8 @@ public class CollectionControler {
 
     @ModelAttribute
     private User user(){
-        return userRepository.findById(1L).get();
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByEmail(userEmail).get();
     }
 
     @GetMapping("/show")
