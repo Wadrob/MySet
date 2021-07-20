@@ -8,7 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class AuthenticationService{
+public class AuthenticationService {
+    // UserManagerService
+    // - updateData
+    // - changePassword
+    // - changeNotificationSettings
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

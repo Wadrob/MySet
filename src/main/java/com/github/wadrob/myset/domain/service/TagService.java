@@ -29,6 +29,7 @@ public class TagService {
             Long num = tagRepository.countAllByName(tag.getName());
             tagsMap.put(tag, num.intValue());
         }
+        // TODO Tu jest ładnie :)
         tagsMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
@@ -39,6 +40,8 @@ public class TagService {
 
     public List <Tag> threeTags (Map <Tag, Integer> map){
         List <Tag> tags = new ArrayList<Tag>(map.keySet());
+        // TODO a co jak nie ma 3 tagów? ;)
+        //     aka HURA OPTYMISTYCZNY KOD
         return tags.subList(0, 3);
 
     }

@@ -21,6 +21,8 @@ public class Item {
     private String name;
     @Size(max = 500)
     private String description;
+    // TODO Enum zamiast String
+    //      @Enumarated z JPA
     @NotNull
     private String status;
     @ManyToOne

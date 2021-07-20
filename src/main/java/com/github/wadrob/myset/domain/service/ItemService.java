@@ -18,6 +18,7 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
+    // TODO Zawsze jak się tylko da (zawsze się da ;)) używać Stream API (próbować)
     public Map<String, List<Item>> mapByStatus(Collection collection){
         List<Item> collectionItems = itemRepository.findAllByCollection(collection);
         Map<String, List<Item>> mappedCollection = new HashMap<>();
@@ -26,6 +27,7 @@ public class ItemService {
         List<Item> toAdd = new ArrayList<>();
 
         for (int i = 0; i < collectionItems.size(); i++){
+            // TODO i1 -> itemStatus1
             String i1 = collectionItems.get(i).getStatus();
             String i2;
 

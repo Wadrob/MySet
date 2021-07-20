@@ -14,20 +14,26 @@ import java.util.*;
 
 @Controller
 @RequestMapping ("/items")
-public class ItemControler {
+// TODO Kontroler w stylu REST (jeden kontroler do wielu akcji), zamiast wiele kontrolerów
+//      w stylu MVC (jeden kontroler do jednego widoku)
+public class ItemController {
 
     private final ItemRepository itemRepository;
     private final CollectionRepository collectionRepository;
     private final ItemService itemService;
 
-    public ItemControler(ItemRepository itemRepository, CollectionRepository collectionRepository, ItemService itemService) {
+    public ItemController(ItemRepository itemRepository, CollectionRepository collectionRepository, ItemService itemService) {
         this.itemRepository = itemRepository;
         this.collectionRepository = collectionRepository;
         this.itemService = itemService;
     }
 
+    // TODO Przy jednym kontrolerze ten model jest wypełniany zawsze
+    //      czy przy usuwaniu potrzeba listy statusów?
     @ModelAttribute("statuses")
     public List<String> itemStatus (){
+        // TODO Taką listę trzeba przenieść na bazę danych, aby dało się ją konfigurować.
+        //      Jeżeli statusu są na sztywno ustalone i nie może być innych to Enum
         List<String> status = new ArrayList<>();
         status.add("Owned");
         status.add("To buy");
@@ -49,6 +55,11 @@ public class ItemControler {
         if(bindingResult.hasErrors()){
             return "items/item-add-form";
         }
+        // TODO Wykorzystanie Optional z pominięciem tego, że to ... optional ;)
+        //      id może nie istnieć.
+        // TODO Zmieniając id kolekcji (colId), na id cudzej kolekcji,
+        //      dodam item komuś innemu, np. item o nazwie "Twoja mama..."
+        //      Zamiast findById -> findByIdAndUserEmail
         item.setCollection(collectionRepository.findById(colId).get());
         itemRepository.save(item);
         return "redirect:/items/showItems/" + colId;

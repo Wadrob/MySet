@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 
 @Controller
+// TODO Warto mieć 1 kontroler -> 1 widok
 public class HomePageController {
 
     private final AuthenticationService authenticationService;
@@ -20,16 +21,19 @@ public class HomePageController {
         this.authenticationService = authenticationService;
     }
 
+    // TODO To jest zadanie Spring Security, aby ze strony głównej (?) "/" szło zawsze na "/login"
     @GetMapping("/")
     public String toLoginPage(){
-        return "redirect:/login";
+        return "redirect:/collection/show";
     }
 
+    // TODO W LoginPageController
     @GetMapping("/login")
     public String userLoginPage(){
         return "homepage/login-page";
     }
 
+    // TODO W RegistrationPageController
     @GetMapping("/register")
     public String prepareRegistrationPage(Model model){
         model.addAttribute("user", new User());
